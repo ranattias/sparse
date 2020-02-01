@@ -1,0 +1,26 @@
+MY LOG:
+1. Remove folders:
+    - dist - distrubution folder with EGG file (lib file)
+    - build  - I assume build egg file
+    - dist x86
+TO do:
+- what those file are doing:
+    - convert log file to..
+    - calc confidence
+- Closed: run with sparce and prude flags
+    - status: this is default
+1- how to compare results. run to similar run, look for different
+    - Generate result in article
+    - use get result_from_log.py
+2- Go through core.py - trank, prune ---
+3. - plot histogram  -expecting alexnet.numpy ?  need to debug
+
+
+
+Run imagenet with resnet50:
+    # This script launches ResNet50 inference benchmark in FP32 on 1 GPU with 128 batch size
+        python ./main.py -j5 --arch resnet50 -b 128 --benchmark-inference /data/imagenet
+
+check usage:
+        SparseSpeedupBench
+        prune_rate = masking.name2prune_rate[name]
