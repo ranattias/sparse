@@ -14,8 +14,9 @@ TO do:
     - use get result_from_log.py
     - Get result_from_plot - not work on pycharm  - look on one file only
             - add computation time to the tablel
-    - go over the lod files
-2- Go through core.py - trank, prune ---
+    - go over the log files content
+    - add all layer prune computation time to log file.-  see SparseSpeedupBench
+2  Go through core.py - trank, prune ---
 3. - plot histogram  -expecting alexnet.numpy ?  need to debug
 
 
@@ -25,5 +26,5 @@ Run imagenet with resnet50:
         python ./main.py -j5 --arch resnet50 -b 128 --benchmark-inference /data/imagenet
 
 check usage:
-        SparseSpeedupBench
+
         prune_rate = masking.name2prune_rate[name]

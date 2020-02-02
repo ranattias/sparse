@@ -49,6 +49,7 @@ sparselearning.core.add_sparse_args(parser_cmd)
 
 args = parser.parse_args()
 
+
 if args.recursive:
     folders = [x[0] for x in os.walk(args.folder_path)]
 else:
