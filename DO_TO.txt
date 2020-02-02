@@ -12,6 +12,9 @@ TO do:
 1- how to compare results. run to similar run, look for different
     - Generate result in article
     - use get result_from_log.py
+    - Get result_from_plot - not work on pycharm  - look on one file only
+            - add computation time to the tablel
+    - go over the lod files
 2- Go through core.py - trank, prune ---
 3. - plot histogram  -expecting alexnet.numpy ?  need to debug
 
