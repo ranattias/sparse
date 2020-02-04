@@ -28,3 +28,8 @@ check usage:
 
 
 
+Contribution 
+- ADD MOBILENET
+     - mobile class under "models.py' files
+- ADD FASHION MNIST
+    - Data loader  - maybe from first project
