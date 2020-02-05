@@ -9,6 +9,7 @@ TO do:
     - calc confidence
 - Closed: run with sparce and prude flags
     - status: this is default
+
 1- how to compare results. run to similar run, look for different
     - Generate result in article
     - use get result_from_log.py
@@ -16,7 +17,7 @@ TO do:
             - add computation time to the tablel
     - go over the log files content
     - add all layer prune computation time to log file.-  see SparseSpeedupBench
-2  Go through core.py - trank, prune ---
+2   Go through core.py - trank, prune ---
 3. - plot histogram  -expecting alexnet.numpy ?  need to debug
 
 
@@ -26,5 +27,8 @@ Run imagenet with resnet50:
         python ./main.py -j5 --arch resnet50 -b 128 --benchmark-inference /data/imagenet
 
 check usage:
-
         prune_rate = masking.name2prune_rate[name]
+
+
+
+NOTE: ON PYCHARM CAN'T RUN WITH --BENCH BECAUSE THE IS NO CUDA(?)

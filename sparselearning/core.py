@@ -150,7 +150,8 @@ class Masking(object):
             for module in self.modules:
                 for name, weight in module.named_parameters():
                     if name not in self.masks: continue
-                    self.masks[name][:] = (torch.rand(weight.shape) < density).float().data.cuda()
+                    # rana: self.masks[name][:] = (torch.rand(weight.shape) < density).float().data.cuda()
+                    self.masks[name][:] = (torch.rand(weight.shape) < density).float().data
                     self.baseline_nonzero += weight.numel()*density
             self.apply_mask()
         elif mode == 'resume':
@@ -288,7 +289,9 @@ class Masking(object):
         self.modules.append(module)
         for name, tensor in module.named_parameters():
             self.names.append(name)
-            self.masks[name] = torch.zeros_like(tensor, dtype=torch.float32, requires_grad=False).cuda()
+            # rana: self.masks[name] = torch.zeros_like(tensor, dtype=torch.float32, requires_grad=False).cuda()
+            self.masks[name] = torch.zeros_like(tensor, dtype=torch.float32, requires_grad=False)
+
         print('Removing biases...')
         self.remove_weight_partial_name('bias')
         print('Removing 2D batch norms...')
