@@ -42,7 +42,7 @@ models['wrn-28-2'] = (WideResNet, [28, 2, 10, 0.3])
 models['wrn-22-8'] = (WideResNet, [22, 8, 10, 0.3])
 models['wrn-16-8'] = (WideResNet, [16, 8, 10, 0.3])
 models['wrn-16-10'] = (WideResNet, [16, 10, 10, 0.3])
-models['MobileNet'] = (MobileNet, [1, 100]) # rana:
+models['MobileNet'] = (MobileNet, [1, 100, False]) # rana:
 
 def setup_logger(args):
     global logger
