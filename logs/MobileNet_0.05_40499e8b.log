@@ -1,0 +1,1404 @@
+21:24:30: Namespace(batch_size=100, bench=True, data='cifar', decay_frequency=25000, decay_schedule='cosine', dense=False, density=0.05, epochs=100, fp16=False, growth='momentum', iters=1, l1=0.0, l2=0.0005, log_interval=100, lr=0.1, max_threads=10, model='MobileNet', momentum=0.9, no_cuda=False, optimizer='sgd', prune='magnitude', prune_rate=0.5, redistribution='momentum', resume=None, save_features=False, save_model='./models/model.pt', seed=17, start_epoch=1, test_batch_size=100, valid_split=0.1, verbose=False)
+21:24:30: 
+
+
+21:24:30: ================================================================================
+21:24:30: 
+Iteration start: 1/1
+
+21:24:31: MobileNet(
+  (conv1): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+  (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (dw2_1): DepthWiseBlock(
+    (conv_dw): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+    (bn_dw): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw2_2): DepthWiseBlock(
+    (conv_dw): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+    (bn_dw): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_1): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_2): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_1): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_2): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_1): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_2): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_3): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_4): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_5): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_6): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw6): DepthWiseBlock(
+    (conv_dw): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024, bias=False)
+    (bn_dw): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(1024, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc): Linear(in_features=1024, out_features=100, bias=True)
+)
+21:24:31: ============================================================
+21:24:31: MobileNet
+21:24:31: ============================================================
+21:24:31: ============================================================
+21:24:31: Prune mode: magnitude
+21:24:31: Growth mode: momentum
+21:24:31: Redistribution mode: momentum
+21:24:31: ============================================================
+21:24:32: Train Epoch: 1 [0/45000 (0%)]	Loss: 4.604723
+21:24:37: Train Epoch: 1 [10000/45000 (22%)]	Loss: nan
+21:24:42: Train Epoch: 1 [20000/45000 (44%)]	Loss: nan
+21:24:46: Train Epoch: 1 [30000/45000 (67%)]	Loss: nan
+21:24:51: Train Epoch: 1 [40000/45000 (89%)]	Loss: nan
+21:24:55: 
+Evaluation: Average loss: nan, Accuracy: 493/5000 (9.860%)
+
+21:25:51: Namespace(batch_size=100, bench=True, data='cifar', decay_frequency=25000, decay_schedule='cosine', dense=True, density=1.0, epochs=100, fp16=False, growth='momentum', iters=1, l1=0.0, l2=0.0005, log_interval=100, lr=0.1, max_threads=10, model='MobileNet', momentum=0.9, no_cuda=False, optimizer='sgd', prune='magnitude', prune_rate=0.5, redistribution='momentum', resume=None, save_features=False, save_model='./models/model.pt', seed=17, start_epoch=1, test_batch_size=100, valid_split=0.1, verbose=True)
+21:25:51: 
+
+
+21:25:51: ================================================================================
+21:25:51: 
+Iteration start: 1/1
+
+21:25:52: MobileNet(
+  (conv1): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+  (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (dw2_1): DepthWiseBlock(
+    (conv_dw): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+    (bn_dw): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw2_2): DepthWiseBlock(
+    (conv_dw): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+    (bn_dw): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_1): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_2): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_1): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_2): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_1): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_2): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_3): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_4): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_5): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_6): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw6): DepthWiseBlock(
+    (conv_dw): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024, bias=False)
+    (bn_dw): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(1024, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc): Linear(in_features=1024, out_features=100, bias=True)
+)
+21:25:52: ============================================================
+21:25:52: MobileNet
+21:25:52: ============================================================
+21:25:52: ============================================================
+21:25:52: Prune mode: magnitude
+21:25:52: Growth mode: momentum
+21:25:52: Redistribution mode: momentum
+21:25:52: ============================================================
+21:25:53: Train Epoch: 1 [0/45000 (0%)]	Loss: 4.641055
+21:25:58: Train Epoch: 1 [10000/45000 (22%)]	Loss: 2.070999
+21:26:03: Train Epoch: 1 [20000/45000 (44%)]	Loss: 2.191387
+21:26:08: Train Epoch: 1 [30000/45000 (67%)]	Loss: 1.572804
+21:26:12: Train Epoch: 1 [40000/45000 (89%)]	Loss: 1.645447
+21:26:16: 
+Evaluation: Average loss: -7.4973, Accuracy: 1916/5000 (38.320%)
+
+21:26:16: Current learning rate: 0.1. Time taken for epoch: 23.98 seconds.
+
+21:26:17: Train Epoch: 2 [0/45000 (0%)]	Loss: 1.539217
+21:26:22: Train Epoch: 2 [10000/45000 (22%)]	Loss: 1.506656
+21:26:26: Train Epoch: 2 [20000/45000 (44%)]	Loss: 1.660257
+21:28:33: Namespace(batch_size=100, bench=True, data='cifar', decay_frequency=25000, decay_schedule='cosine', dense=True, density=1.0, epochs=100, fp16=False, growth='momentum', iters=1, l1=0.0, l2=0.0005, log_interval=100, lr=0.1, max_threads=10, model='MobileNet', momentum=0.9, no_cuda=False, optimizer='sgd', prune='magnitude', prune_rate=0.5, redistribution='momentum', resume=None, save_features=False, save_model='./models/model.pt', seed=17, start_epoch=1, test_batch_size=100, valid_split=0.1, verbose=True)
+21:28:33: 
+
+
+21:28:33: ================================================================================
+21:28:33: 
+Iteration start: 1/1
+
+21:28:34: MobileNet(
+  (conv1): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+  (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (dw2_1): DepthWiseBlock(
+    (conv_dw): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+    (bn_dw): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw2_2): DepthWiseBlock(
+    (conv_dw): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+    (bn_dw): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_1): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_2): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_1): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_2): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_1): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_2): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_3): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_4): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_5): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_6): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw6): DepthWiseBlock(
+    (conv_dw): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024, bias=False)
+    (bn_dw): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(1024, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc): Linear(in_features=1024, out_features=100, bias=True)
+)
+21:28:34: ============================================================
+21:28:34: MobileNet
+21:28:34: ============================================================
+21:28:34: ============================================================
+21:28:34: Prune mode: magnitude
+21:28:34: Growth mode: momentum
+21:28:34: Redistribution mode: momentum
+21:28:34: ============================================================
+21:28:35: Train Epoch: 1 [0/45000 (0%)]	Loss: 4.641055
+21:28:40: Train Epoch: 1 [10000/45000 (22%)]	Loss: 2.070999
+21:28:44: Train Epoch: 1 [20000/45000 (44%)]	Loss: 2.191387
+21:28:49: Train Epoch: 1 [30000/45000 (67%)]	Loss: 1.572804
+21:28:54: Train Epoch: 1 [40000/45000 (89%)]	Loss: 1.645447
+21:28:58: 
+Evaluation: Average loss: -7.4973, Accuracy: 1916/5000 (38.320%)
+
+21:28:58: Current learning rate: 0.1. Time taken for epoch: 23.76 seconds.
+
+21:28:59: Train Epoch: 2 [0/45000 (0%)]	Loss: 1.539217
+21:29:04: Train Epoch: 2 [10000/45000 (22%)]	Loss: 1.506656
+21:29:14: Namespace(batch_size=100, bench=True, data='cifar', decay_frequency=25000, decay_schedule='cosine', dense=True, density=0.05, epochs=100, fp16=False, growth='momentum', iters=1, l1=0.0, l2=0.0005, log_interval=100, lr=0.1, max_threads=10, model='MobileNet', momentum=0.9, no_cuda=False, optimizer='sgd', prune='magnitude', prune_rate=0.5, redistribution='momentum', resume=None, save_features=False, save_model='./models/model.pt', seed=17, start_epoch=1, test_batch_size=100, valid_split=0.1, verbose=True)
+21:29:14: 
+
+
+21:29:14: ================================================================================
+21:29:14: 
+Iteration start: 1/1
+
+21:29:15: MobileNet(
+  (conv1): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+  (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (dw2_1): DepthWiseBlock(
+    (conv_dw): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+    (bn_dw): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw2_2): DepthWiseBlock(
+    (conv_dw): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+    (bn_dw): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_1): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_2): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_1): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_2): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_1): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_2): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_3): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_4): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_5): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_6): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw6): DepthWiseBlock(
+    (conv_dw): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024, bias=False)
+    (bn_dw): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(1024, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc): Linear(in_features=1024, out_features=100, bias=True)
+)
+21:29:15: ============================================================
+21:29:15: MobileNet
+21:29:15: ============================================================
+21:29:15: ============================================================
+21:29:15: Prune mode: magnitude
+21:29:15: Growth mode: momentum
+21:29:15: Redistribution mode: momentum
+21:29:15: ============================================================
+21:29:16: Train Epoch: 1 [0/45000 (0%)]	Loss: 4.641055
+21:29:21: Train Epoch: 1 [10000/45000 (22%)]	Loss: 2.070999
+21:29:26: Train Epoch: 1 [20000/45000 (44%)]	Loss: 2.191387
+21:29:30: Train Epoch: 1 [30000/45000 (67%)]	Loss: 1.572804
+21:29:35: Train Epoch: 1 [40000/45000 (89%)]	Loss: 1.645447
+21:29:39: 
+Evaluation: Average loss: -7.4973, Accuracy: 1916/5000 (38.320%)
+
+21:29:39: Current learning rate: 0.1. Time taken for epoch: 23.74 seconds.
+
+21:29:40: Train Epoch: 2 [0/45000 (0%)]	Loss: 1.539217
+21:29:50: Namespace(batch_size=100, bench=True, data='cifar', decay_frequency=25000, decay_schedule='cosine', dense=False, density=0.05, epochs=100, fp16=False, growth='momentum', iters=1, l1=0.0, l2=0.0005, log_interval=100, lr=0.1, max_threads=10, model='MobileNet', momentum=0.9, no_cuda=False, optimizer='sgd', prune='magnitude', prune_rate=0.5, redistribution='momentum', resume=None, save_features=False, save_model='./models/model.pt', seed=17, start_epoch=1, test_batch_size=100, valid_split=0.1, verbose=True)
+21:29:50: Namespace(batch_size=100, bench=True, data='cifar', decay_frequency=25000, decay_schedule='cosine', dense=False, density=0.05, epochs=100, fp16=False, growth='momentum', iters=1, l1=0.0, l2=0.0005, log_interval=100, lr=0.1, max_threads=10, model='MobileNet', momentum=0.9, no_cuda=False, optimizer='sgd', prune='magnitude', prune_rate=0.5, redistribution='momentum', resume=None, save_features=False, save_model='./models/model.pt', seed=17, start_epoch=1, test_batch_size=100, valid_split=0.1, verbose=True)
+21:29:50: 
+
+
+21:29:50: 
+
+
+21:29:50: ================================================================================
+21:29:50: ================================================================================
+21:29:50: 
+Iteration start: 1/1
+
+21:29:50: 
+Iteration start: 1/1
+
+21:29:51: MobileNet(
+  (conv1): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+  (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (dw2_1): DepthWiseBlock(
+    (conv_dw): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+    (bn_dw): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw2_2): DepthWiseBlock(
+    (conv_dw): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+    (bn_dw): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_1): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_2): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_1): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_2): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_1): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_2): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_3): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_4): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_5): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_6): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw6): DepthWiseBlock(
+    (conv_dw): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024, bias=False)
+    (bn_dw): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(1024, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc): Linear(in_features=1024, out_features=100, bias=True)
+)
+21:29:51: MobileNet(
+  (conv1): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+  (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (dw2_1): DepthWiseBlock(
+    (conv_dw): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+    (bn_dw): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw2_2): DepthWiseBlock(
+    (conv_dw): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+    (bn_dw): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_1): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_2): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_1): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_2): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_1): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_2): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_3): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_4): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_5): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_6): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw6): DepthWiseBlock(
+    (conv_dw): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024, bias=False)
+    (bn_dw): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(1024, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc): Linear(in_features=1024, out_features=100, bias=True)
+)
+21:29:51: ============================================================
+21:29:51: ============================================================
+21:29:51: MobileNet
+21:29:51: MobileNet
+21:29:51: ============================================================
+21:29:51: ============================================================
+21:29:51: ============================================================
+21:29:51: ============================================================
+21:29:51: Prune mode: magnitude
+21:29:51: Prune mode: magnitude
+21:29:51: Growth mode: momentum
+21:29:51: Growth mode: momentum
+21:29:51: Redistribution mode: momentum
+21:29:51: Redistribution mode: momentum
+21:29:51: ============================================================
+21:29:51: ============================================================
+21:29:52: Train Epoch: 1 [0/45000 (0%)]	Loss: 4.604723
+21:29:52: Train Epoch: 1 [0/45000 (0%)]	Loss: 4.604723
+21:29:57: Train Epoch: 1 [10000/45000 (22%)]	Loss: nan
+21:29:57: Train Epoch: 1 [10000/45000 (22%)]	Loss: nan
+21:30:02: Train Epoch: 1 [20000/45000 (44%)]	Loss: nan
+21:30:02: Train Epoch: 1 [20000/45000 (44%)]	Loss: nan
+21:30:07: Train Epoch: 1 [30000/45000 (67%)]	Loss: nan
+21:30:07: Train Epoch: 1 [30000/45000 (67%)]	Loss: nan
+21:30:12: Train Epoch: 1 [40000/45000 (89%)]	Loss: nan
+21:30:12: Train Epoch: 1 [40000/45000 (89%)]	Loss: nan
+21:30:16: 
+Evaluation: Average loss: nan, Accuracy: 493/5000 (9.860%)
+
+21:30:16: 
+Evaluation: Average loss: nan, Accuracy: 493/5000 (9.860%)
+
+21:44:13: Namespace(batch_size=100, bench=True, data='cifar', decay_frequency=25000, decay_schedule='cosine', dense=True, density=0.05, epochs=100, fp16=False, growth='momentum', iters=1, l1=0.0, l2=0.0005, log_interval=100, lr=0.1, max_threads=10, model='MobileNet', momentum=0.9, no_cuda=False, optimizer='sgd', prune='magnitude', prune_rate=0.5, redistribution='momentum', resume=None, save_features=False, save_model='./models/model.pt', seed=17, start_epoch=1, test_batch_size=100, valid_split=0.1, verbose=True)
+21:44:13: Namespace(batch_size=100, bench=True, data='cifar', decay_frequency=25000, decay_schedule='cosine', dense=True, density=0.05, epochs=100, fp16=False, growth='momentum', iters=1, l1=0.0, l2=0.0005, log_interval=100, lr=0.1, max_threads=10, model='MobileNet', momentum=0.9, no_cuda=False, optimizer='sgd', prune='magnitude', prune_rate=0.5, redistribution='momentum', resume=None, save_features=False, save_model='./models/model.pt', seed=17, start_epoch=1, test_batch_size=100, valid_split=0.1, verbose=True)
+21:44:13: 
+
+
+21:44:13: 
+
+
+21:44:13: ================================================================================
+21:44:13: ================================================================================
+21:44:13: 
+Iteration start: 1/1
+
+21:44:13: 
+Iteration start: 1/1
+
+21:44:14: MobileNet(
+  (conv1): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+  (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (dw2_1): DepthWiseBlock(
+    (conv_dw): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+    (bn_dw): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw2_2): DepthWiseBlock(
+    (conv_dw): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+    (bn_dw): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_1): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_2): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_1): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_2): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_1): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_2): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_3): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_4): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_5): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_6): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw6): DepthWiseBlock(
+    (conv_dw): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024, bias=False)
+    (bn_dw): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(1024, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc): Linear(in_features=1024, out_features=100, bias=True)
+)
+21:44:14: MobileNet(
+  (conv1): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+  (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (dw2_1): DepthWiseBlock(
+    (conv_dw): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+    (bn_dw): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw2_2): DepthWiseBlock(
+    (conv_dw): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+    (bn_dw): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_1): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw3_2): DepthWiseBlock(
+    (conv_dw): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+    (bn_dw): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_1): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw4_2): DepthWiseBlock(
+    (conv_dw): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=256, bias=False)
+    (bn_dw): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_1): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_2): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_3): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_4): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_5): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw5_6): DepthWiseBlock(
+    (conv_dw): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=512, bias=False)
+    (bn_dw): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(512, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (dw6): DepthWiseBlock(
+    (conv_dw): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024, bias=False)
+    (bn_dw): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (conv_sep): Conv2d(1024, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn_sep): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc): Linear(in_features=1024, out_features=100, bias=True)
+)
+21:44:14: ============================================================
+21:44:14: ============================================================
+21:44:14: MobileNet
+21:44:14: MobileNet
+21:44:14: ============================================================
+21:44:14: ============================================================
+21:44:14: ============================================================
+21:44:14: ============================================================
+21:44:14: Prune mode: magnitude
+21:44:14: Prune mode: magnitude
+21:44:14: Growth mode: momentum
+21:44:14: Growth mode: momentum
+21:44:14: Redistribution mode: momentum
+21:44:14: Redistribution mode: momentum
+21:44:14: ============================================================
+21:44:14: ============================================================
+21:44:15: Train Epoch: 1 [0/45000 (0%)]	Loss: 4.641055
+21:44:15: Train Epoch: 1 [0/45000 (0%)]	Loss: 4.641055
+21:44:20: Train Epoch: 1 [10000/45000 (22%)]	Loss: 2.070999
+21:44:20: Train Epoch: 1 [10000/45000 (22%)]	Loss: 2.070999
+21:44:25: Train Epoch: 1 [20000/45000 (44%)]	Loss: 2.191387
+21:44:25: Train Epoch: 1 [20000/45000 (44%)]	Loss: 2.191387
+21:44:30: Train Epoch: 1 [30000/45000 (67%)]	Loss: 1.572804
+21:44:30: Train Epoch: 1 [30000/45000 (67%)]	Loss: 1.572804
+21:44:35: Train Epoch: 1 [40000/45000 (89%)]	Loss: 1.645447
+21:44:35: Train Epoch: 1 [40000/45000 (89%)]	Loss: 1.645447
+21:44:39: 
+Evaluation: Average loss: -7.4973, Accuracy: 1916/5000 (38.320%)
+
+21:44:39: 
+Evaluation: Average loss: -7.4973, Accuracy: 1916/5000 (38.320%)
+
+21:44:39: Current learning rate: 0.1. Time taken for epoch: 24.69 seconds.
+
+21:44:39: Current learning rate: 0.1. Time taken for epoch: 24.69 seconds.
+
+21:44:40: Train Epoch: 2 [0/45000 (0%)]	Loss: 1.539217
+21:44:40: Train Epoch: 2 [0/45000 (0%)]	Loss: 1.539217
+21:44:45: Train Epoch: 2 [10000/45000 (22%)]	Loss: 1.506656
+21:44:45: Train Epoch: 2 [10000/45000 (22%)]	Loss: 1.506656
+21:44:50: Train Epoch: 2 [20000/45000 (44%)]	Loss: 1.660257
+21:44:50: Train Epoch: 2 [20000/45000 (44%)]	Loss: 1.660257
+21:44:55: Train Epoch: 2 [30000/45000 (67%)]	Loss: 1.391268
+21:44:55: Train Epoch: 2 [30000/45000 (67%)]	Loss: 1.391268
+21:45:00: Train Epoch: 2 [40000/45000 (89%)]	Loss: 1.605617
+21:45:00: Train Epoch: 2 [40000/45000 (89%)]	Loss: 1.605617
+21:45:04: 
+Evaluation: Average loss: -7.5427, Accuracy: 2206/5000 (44.120%)
+
+21:45:04: 
+Evaluation: Average loss: -7.5427, Accuracy: 2206/5000 (44.120%)
+
+21:45:04: Current learning rate: 0.1. Time taken for epoch: 24.98 seconds.
+
+21:45:04: Current learning rate: 0.1. Time taken for epoch: 24.98 seconds.
+
+21:45:05: Train Epoch: 3 [0/45000 (0%)]	Loss: 1.405193
+21:45:05: Train Epoch: 3 [0/45000 (0%)]	Loss: 1.405193
+21:45:10: Train Epoch: 3 [10000/45000 (22%)]	Loss: 1.692926
+21:45:10: Train Epoch: 3 [10000/45000 (22%)]	Loss: 1.692926
+21:45:14: Train Epoch: 3 [20000/45000 (44%)]	Loss: 1.380153
+21:45:14: Train Epoch: 3 [20000/45000 (44%)]	Loss: 1.380153
+21:45:19: Train Epoch: 3 [30000/45000 (67%)]	Loss: 1.360908
+21:45:19: Train Epoch: 3 [30000/45000 (67%)]	Loss: 1.360908
+21:45:24: Train Epoch: 3 [40000/45000 (89%)]	Loss: 1.352115
+21:45:24: Train Epoch: 3 [40000/45000 (89%)]	Loss: 1.352115
+21:45:28: 
+Evaluation: Average loss: -8.2287, Accuracy: 2511/5000 (50.220%)
+
+21:45:28: 
+Evaluation: Average loss: -8.2287, Accuracy: 2511/5000 (50.220%)
+
+21:45:28: Current learning rate: 0.1. Time taken for epoch: 24.04 seconds.
+
+21:45:28: Current learning rate: 0.1. Time taken for epoch: 24.04 seconds.
+
+21:45:29: Train Epoch: 4 [0/45000 (0%)]	Loss: 1.296323
+21:45:29: Train Epoch: 4 [0/45000 (0%)]	Loss: 1.296323
+21:45:34: Train Epoch: 4 [10000/45000 (22%)]	Loss: 1.222319
+21:45:34: Train Epoch: 4 [10000/45000 (22%)]	Loss: 1.222319
+21:45:39: Train Epoch: 4 [20000/45000 (44%)]	Loss: 1.121193
+21:45:39: Train Epoch: 4 [20000/45000 (44%)]	Loss: 1.121193
+21:45:43: Train Epoch: 4 [30000/45000 (67%)]	Loss: 1.495911
+21:45:43: Train Epoch: 4 [30000/45000 (67%)]	Loss: 1.495911
+21:45:48: Train Epoch: 4 [40000/45000 (89%)]	Loss: 1.157913
+21:45:48: Train Epoch: 4 [40000/45000 (89%)]	Loss: 1.157913
+21:45:52: 
+Evaluation: Average loss: -8.1894, Accuracy: 2618/5000 (52.360%)
+
+21:45:52: 
+Evaluation: Average loss: -8.1894, Accuracy: 2618/5000 (52.360%)
+
+21:45:52: Current learning rate: 0.1. Time taken for epoch: 24.28 seconds.
+
+21:45:52: Current learning rate: 0.1. Time taken for epoch: 24.28 seconds.
+
+21:45:53: Train Epoch: 5 [0/45000 (0%)]	Loss: 1.220667
+21:45:53: Train Epoch: 5 [0/45000 (0%)]	Loss: 1.220667
+21:45:58: Train Epoch: 5 [10000/45000 (22%)]	Loss: 1.145001
+21:45:58: Train Epoch: 5 [10000/45000 (22%)]	Loss: 1.145001
+21:46:03: Train Epoch: 5 [20000/45000 (44%)]	Loss: 1.251591
+21:46:03: Train Epoch: 5 [20000/45000 (44%)]	Loss: 1.251591
+21:46:08: Train Epoch: 5 [30000/45000 (67%)]	Loss: 1.225516
+21:46:08: Train Epoch: 5 [30000/45000 (67%)]	Loss: 1.225516
+21:46:13: Train Epoch: 5 [40000/45000 (89%)]	Loss: 1.051940
+21:46:13: Train Epoch: 5 [40000/45000 (89%)]	Loss: 1.051940
+21:46:17: 
+Evaluation: Average loss: -8.4317, Accuracy: 2835/5000 (56.700%)
+
+21:46:17: 
+Evaluation: Average loss: -8.4317, Accuracy: 2835/5000 (56.700%)
+
+21:46:17: Current learning rate: 0.1. Time taken for epoch: 24.49 seconds.
+
+21:46:17: Current learning rate: 0.1. Time taken for epoch: 24.49 seconds.
+
+21:46:17: Train Epoch: 6 [0/45000 (0%)]	Loss: 1.173297
+21:46:17: Train Epoch: 6 [0/45000 (0%)]	Loss: 1.173297
+21:46:23: Train Epoch: 6 [10000/45000 (22%)]	Loss: 1.195373
+21:46:23: Train Epoch: 6 [10000/45000 (22%)]	Loss: 1.195373
+21:46:27: Train Epoch: 6 [20000/45000 (44%)]	Loss: 1.166446
+21:46:27: Train Epoch: 6 [20000/45000 (44%)]	Loss: 1.166446
+21:46:32: Train Epoch: 6 [30000/45000 (67%)]	Loss: 1.066273
+21:46:32: Train Epoch: 6 [30000/45000 (67%)]	Loss: 1.066273
+21:46:37: Train Epoch: 6 [40000/45000 (89%)]	Loss: 1.092280
+21:46:37: Train Epoch: 6 [40000/45000 (89%)]	Loss: 1.092280
+21:46:41: 
+Evaluation: Average loss: -8.5108, Accuracy: 2941/5000 (58.820%)
+
+21:46:41: 
+Evaluation: Average loss: -8.5108, Accuracy: 2941/5000 (58.820%)
+
+21:46:41: Current learning rate: 0.1. Time taken for epoch: 24.24 seconds.
+
+21:46:41: Current learning rate: 0.1. Time taken for epoch: 24.24 seconds.
+
+21:46:41: Train Epoch: 7 [0/45000 (0%)]	Loss: 1.209516
+21:46:41: Train Epoch: 7 [0/45000 (0%)]	Loss: 1.209516
+21:46:47: Train Epoch: 7 [10000/45000 (22%)]	Loss: 1.300370
+21:46:47: Train Epoch: 7 [10000/45000 (22%)]	Loss: 1.300370
+21:46:51: Train Epoch: 7 [20000/45000 (44%)]	Loss: 1.019166
+21:46:51: Train Epoch: 7 [20000/45000 (44%)]	Loss: 1.019166
+21:46:56: Train Epoch: 7 [30000/45000 (67%)]	Loss: 1.229778
+21:46:56: Train Epoch: 7 [30000/45000 (67%)]	Loss: 1.229778
+21:47:01: Train Epoch: 7 [40000/45000 (89%)]	Loss: 0.902035
+21:47:01: Train Epoch: 7 [40000/45000 (89%)]	Loss: 0.902035
+21:47:05: 
+Evaluation: Average loss: -8.4379, Accuracy: 2861/5000 (57.220%)
+
+21:47:05: 
+Evaluation: Average loss: -8.4379, Accuracy: 2861/5000 (57.220%)
+
+21:47:05: Current learning rate: 0.1. Time taken for epoch: 24.50 seconds.
+
+21:47:05: Current learning rate: 0.1. Time taken for epoch: 24.50 seconds.
+
+21:47:06: Train Epoch: 8 [0/45000 (0%)]	Loss: 1.122509
+21:47:06: Train Epoch: 8 [0/45000 (0%)]	Loss: 1.122509
+21:47:11: Train Epoch: 8 [10000/45000 (22%)]	Loss: 1.098168
+21:47:11: Train Epoch: 8 [10000/45000 (22%)]	Loss: 1.098168
+21:47:16: Train Epoch: 8 [20000/45000 (44%)]	Loss: 1.152307
+21:47:16: Train Epoch: 8 [20000/45000 (44%)]	Loss: 1.152307
+21:47:21: Train Epoch: 8 [30000/45000 (67%)]	Loss: 0.939621
+21:47:21: Train Epoch: 8 [30000/45000 (67%)]	Loss: 0.939621
+21:47:26: Train Epoch: 8 [40000/45000 (89%)]	Loss: 0.934100
+21:47:26: Train Epoch: 8 [40000/45000 (89%)]	Loss: 0.934100
+21:47:29: 
+Evaluation: Average loss: -8.7891, Accuracy: 3246/5000 (64.920%)
+
+21:47:29: 
+Evaluation: Average loss: -8.7891, Accuracy: 3246/5000 (64.920%)
+
+21:47:30: Current learning rate: 0.1. Time taken for epoch: 24.06 seconds.
+
+21:47:30: Current learning rate: 0.1. Time taken for epoch: 24.06 seconds.
+
+21:47:30: Train Epoch: 9 [0/45000 (0%)]	Loss: 1.052353
+21:47:30: Train Epoch: 9 [0/45000 (0%)]	Loss: 1.052353
+21:47:35: Train Epoch: 9 [10000/45000 (22%)]	Loss: 0.864117
+21:47:35: Train Epoch: 9 [10000/45000 (22%)]	Loss: 0.864117
+21:47:40: Train Epoch: 9 [20000/45000 (44%)]	Loss: 0.877453
+21:47:40: Train Epoch: 9 [20000/45000 (44%)]	Loss: 0.877453
+21:47:45: Train Epoch: 9 [30000/45000 (67%)]	Loss: 0.865385
+21:47:45: Train Epoch: 9 [30000/45000 (67%)]	Loss: 0.865385
+21:47:50: Train Epoch: 9 [40000/45000 (89%)]	Loss: 1.255493
+21:47:50: Train Epoch: 9 [40000/45000 (89%)]	Loss: 1.255493
+21:47:54: 
+Evaluation: Average loss: -8.9968, Accuracy: 3197/5000 (63.940%)
+
+21:47:54: 
+Evaluation: Average loss: -8.9968, Accuracy: 3197/5000 (63.940%)
+
+21:47:54: Current learning rate: 0.1. Time taken for epoch: 24.10 seconds.
+
+21:47:54: Current learning rate: 0.1. Time taken for epoch: 24.10 seconds.
+
+21:47:54: Train Epoch: 10 [0/45000 (0%)]	Loss: 1.041793
+21:47:54: Train Epoch: 10 [0/45000 (0%)]	Loss: 1.041793
+21:48:00: Train Epoch: 10 [10000/45000 (22%)]	Loss: 1.026022
+21:48:00: Train Epoch: 10 [10000/45000 (22%)]	Loss: 1.026022
+21:48:05: Train Epoch: 10 [20000/45000 (44%)]	Loss: 0.984909
+21:48:05: Train Epoch: 10 [20000/45000 (44%)]	Loss: 0.984909
+21:48:09: Train Epoch: 10 [30000/45000 (67%)]	Loss: 1.070504
+21:48:09: Train Epoch: 10 [30000/45000 (67%)]	Loss: 1.070504
+21:48:14: Train Epoch: 10 [40000/45000 (89%)]	Loss: 1.037909
+21:48:14: Train Epoch: 10 [40000/45000 (89%)]	Loss: 1.037909
+21:48:18: 
+Evaluation: Average loss: -9.0468, Accuracy: 2935/5000 (58.700%)
+
+21:48:18: 
+Evaluation: Average loss: -9.0468, Accuracy: 2935/5000 (58.700%)
+
+21:48:18: Current learning rate: 0.1. Time taken for epoch: 24.31 seconds.
+
+21:48:18: Current learning rate: 0.1. Time taken for epoch: 24.31 seconds.
+
+21:48:19: Train Epoch: 11 [0/45000 (0%)]	Loss: 0.903475
+21:48:19: Train Epoch: 11 [0/45000 (0%)]	Loss: 0.903475
+21:48:24: Train Epoch: 11 [10000/45000 (22%)]	Loss: 0.917096
+21:48:24: Train Epoch: 11 [10000/45000 (22%)]	Loss: 0.917096
+21:48:28: Train Epoch: 11 [20000/45000 (44%)]	Loss: 1.066228
+21:48:28: Train Epoch: 11 [20000/45000 (44%)]	Loss: 1.066228
+21:48:33: Train Epoch: 11 [30000/45000 (67%)]	Loss: 1.015116
+21:48:33: Train Epoch: 11 [30000/45000 (67%)]	Loss: 1.015116
+21:48:39: Train Epoch: 11 [40000/45000 (89%)]	Loss: 0.892001
+21:48:39: Train Epoch: 11 [40000/45000 (89%)]	Loss: 0.892001
+21:48:43: 
+Evaluation: Average loss: -8.7921, Accuracy: 3232/5000 (64.640%)
+
+21:48:43: 
+Evaluation: Average loss: -8.7921, Accuracy: 3232/5000 (64.640%)
+
+21:48:43: Current learning rate: 0.1. Time taken for epoch: 24.66 seconds.
+
+21:48:43: Current learning rate: 0.1. Time taken for epoch: 24.66 seconds.
+
+21:48:43: Train Epoch: 12 [0/45000 (0%)]	Loss: 0.896391
+21:48:43: Train Epoch: 12 [0/45000 (0%)]	Loss: 0.896391
+21:48:48: Train Epoch: 12 [10000/45000 (22%)]	Loss: 1.040409
+21:48:48: Train Epoch: 12 [10000/45000 (22%)]	Loss: 1.040409
+21:48:53: Train Epoch: 12 [20000/45000 (44%)]	Loss: 0.872414
+21:48:53: Train Epoch: 12 [20000/45000 (44%)]	Loss: 0.872414
+21:48:58: Train Epoch: 12 [30000/45000 (67%)]	Loss: 0.968072
+21:48:58: Train Epoch: 12 [30000/45000 (67%)]	Loss: 0.968072
+21:49:03: Train Epoch: 12 [40000/45000 (89%)]	Loss: 0.936087
+21:49:03: Train Epoch: 12 [40000/45000 (89%)]	Loss: 0.936087
+21:49:07: 
+Evaluation: Average loss: -9.1224, Accuracy: 3245/5000 (64.900%)
+
+21:49:07: 
+Evaluation: Average loss: -9.1224, Accuracy: 3245/5000 (64.900%)
+
+21:49:07: Current learning rate: 0.1. Time taken for epoch: 24.45 seconds.
+
+21:49:07: Current learning rate: 0.1. Time taken for epoch: 24.45 seconds.
+
+21:49:08: Train Epoch: 13 [0/45000 (0%)]	Loss: 0.952147
+21:49:08: Train Epoch: 13 [0/45000 (0%)]	Loss: 0.952147
+21:49:12: Train Epoch: 13 [10000/45000 (22%)]	Loss: 1.037147
+21:49:12: Train Epoch: 13 [10000/45000 (22%)]	Loss: 1.037147
+21:52:49: Namespace(batch_size=100, bench=True, data='cifar', decay_frequency=25000, decay_schedule='cosine', dense=True, density=1.0, epochs=100, fp16=False, growth='momentum', iters=1, l1=0.0, l2=0.0005, log_interval=100, lr=0.1, max_threads=10, model='vgg-d', momentum=0.9, no_cuda=False, optimizer='sgd', prune='magnitude', prune_rate=0.7, redistribution='momentum', resume=None, save_features=False, save_model='./models/model.pt', seed=17, start_epoch=1, test_batch_size=100, valid_split=0.1, verbose=True)
+21:52:49: Namespace(batch_size=100, bench=True, data='cifar', decay_frequency=25000, decay_schedule='cosine', dense=True, density=1.0, epochs=100, fp16=False, growth='momentum', iters=1, l1=0.0, l2=0.0005, log_interval=100, lr=0.1, max_threads=10, model='vgg-d', momentum=0.9, no_cuda=False, optimizer='sgd', prune='magnitude', prune_rate=0.7, redistribution='momentum', resume=None, save_features=False, save_model='./models/model.pt', seed=17, start_epoch=1, test_batch_size=100, valid_split=0.1, verbose=True)
+21:52:49: 
+
+
+21:52:49: 
+
+
+21:52:49: ================================================================================
+21:52:49: ================================================================================
+21:52:49: 
+Iteration start: 1/1
+
+21:52:49: 
+Iteration start: 1/1
+
+21:52:50: VGG16(
+  (features): Sequential(
+    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (5): ReLU(inplace=True)
+    (6): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (7): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): ReLU(inplace=True)
+    (10): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (12): ReLU(inplace=True)
+    (13): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (14): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (15): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (16): ReLU(inplace=True)
+    (17): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (18): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (19): ReLU(inplace=True)
+    (20): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (21): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (22): ReLU(inplace=True)
+    (23): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (24): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (25): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (26): ReLU(inplace=True)
+    (27): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (28): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (29): ReLU(inplace=True)
+    (30): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (31): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (32): ReLU(inplace=True)
+    (33): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (34): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (35): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (36): ReLU(inplace=True)
+    (37): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (38): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (39): ReLU(inplace=True)
+    (40): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (41): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (42): ReLU(inplace=True)
+    (43): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (classifier): Sequential(
+    (0): Linear(in_features=512, out_features=512, bias=True)
+    (1): ReLU(inplace=True)
+    (2): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Linear(in_features=512, out_features=512, bias=True)
+    (4): ReLU(inplace=True)
+    (5): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Linear(in_features=512, out_features=10, bias=True)
+  )
+)
+21:52:50: VGG16(
+  (features): Sequential(
+    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (5): ReLU(inplace=True)
+    (6): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (7): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): ReLU(inplace=True)
+    (10): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (12): ReLU(inplace=True)
+    (13): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (14): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (15): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (16): ReLU(inplace=True)
+    (17): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (18): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (19): ReLU(inplace=True)
+    (20): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (21): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (22): ReLU(inplace=True)
+    (23): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (24): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (25): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (26): ReLU(inplace=True)
+    (27): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (28): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (29): ReLU(inplace=True)
+    (30): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (31): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (32): ReLU(inplace=True)
+    (33): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (34): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (35): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (36): ReLU(inplace=True)
+    (37): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (38): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (39): ReLU(inplace=True)
+    (40): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (41): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (42): ReLU(inplace=True)
+    (43): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (classifier): Sequential(
+    (0): Linear(in_features=512, out_features=512, bias=True)
+    (1): ReLU(inplace=True)
+    (2): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Linear(in_features=512, out_features=512, bias=True)
+    (4): ReLU(inplace=True)
+    (5): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Linear(in_features=512, out_features=10, bias=True)
+  )
+)
+21:52:50: ============================================================
+21:52:50: ============================================================
+21:52:50: vgg-d
+21:52:50: vgg-d
+21:52:50: ============================================================
+21:52:50: ============================================================
+21:52:50: ============================================================
+21:52:50: ============================================================
+21:52:50: Prune mode: magnitude
+21:52:50: Prune mode: magnitude
+21:52:50: Growth mode: momentum
+21:52:50: Growth mode: momentum
+21:52:50: Redistribution mode: momentum
+21:52:50: Redistribution mode: momentum
+21:52:50: ============================================================
+21:52:50: ============================================================
+21:52:52: Train Epoch: 1 [0/45000 (0%)]	Loss: 2.493264
+21:52:52: Train Epoch: 1 [0/45000 (0%)]	Loss: 2.493264
+21:52:58: Train Epoch: 1 [10000/45000 (22%)]	Loss: 3.538699
+21:52:58: Train Epoch: 1 [10000/45000 (22%)]	Loss: 3.538699
+21:53:05: Train Epoch: 1 [20000/45000 (44%)]	Loss: 1.976608
+21:53:05: Train Epoch: 1 [20000/45000 (44%)]	Loss: 1.976608
+21:53:11: Train Epoch: 1 [30000/45000 (67%)]	Loss: 1.881186
+21:53:11: Train Epoch: 1 [30000/45000 (67%)]	Loss: 1.881186
+21:53:18: Train Epoch: 1 [40000/45000 (89%)]	Loss: 1.843703
+21:53:18: Train Epoch: 1 [40000/45000 (89%)]	Loss: 1.843703
+21:53:24: 
+Evaluation: Average loss: 1.8959, Accuracy: 1242/5000 (24.840%)
+
+21:53:24: 
+Evaluation: Average loss: 1.8959, Accuracy: 1242/5000 (24.840%)
+
+21:53:24: Current learning rate: 0.1. Time taken for epoch: 33.84 seconds.
+
+21:53:24: Current learning rate: 0.1. Time taken for epoch: 33.84 seconds.
+
+21:53:25: Train Epoch: 2 [0/45000 (0%)]	Loss: 1.915445
+21:53:25: Train Epoch: 2 [0/45000 (0%)]	Loss: 1.915445
+21:53:31: Train Epoch: 2 [10000/45000 (22%)]	Loss: 1.863323
+21:53:31: Train Epoch: 2 [10000/45000 (22%)]	Loss: 1.863323
+21:53:38: Train Epoch: 2 [20000/45000 (44%)]	Loss: 1.873123
+21:53:38: Train Epoch: 2 [20000/45000 (44%)]	Loss: 1.873123
+21:53:44: Train Epoch: 2 [30000/45000 (67%)]	Loss: 1.695018
+21:53:44: Train Epoch: 2 [30000/45000 (67%)]	Loss: 1.695018
+21:53:51: Train Epoch: 2 [40000/45000 (89%)]	Loss: 1.553206
+21:53:51: Train Epoch: 2 [40000/45000 (89%)]	Loss: 1.553206
+21:53:57: 
+Evaluation: Average loss: 1.6408, Accuracy: 1828/5000 (36.560%)
+
+21:53:57: 
+Evaluation: Average loss: 1.6408, Accuracy: 1828/5000 (36.560%)
+
+21:53:57: Current learning rate: 0.1. Time taken for epoch: 33.16 seconds.
+
+21:53:57: Current learning rate: 0.1. Time taken for epoch: 33.16 seconds.
+
+21:53:58: Train Epoch: 3 [0/45000 (0%)]	Loss: 1.825549
+21:53:58: Train Epoch: 3 [0/45000 (0%)]	Loss: 1.825549
