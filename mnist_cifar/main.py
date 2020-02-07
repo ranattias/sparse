@@ -140,25 +140,6 @@ def train(args, model, device, train_loader, optimizer, epoch, lr_scheduler, mas
                 epoch, batch_idx * len(data), len(train_loader) * args.batch_size,
                        100. * batch_idx / len(train_loader), loss.item()))
 
-def train_net():
-    mobilenet.train()
-    train_loss = 0
-    n_correct = 0
-    n_total = 0
-    for batch_idx, (inputs, targets) in enumerate(trainloader):
-        inputs, targets = inputs.to(device), targets.to(device)
-        # Training
-        optimizer.zero_grad()
-        outputs = mobilenet(inputs)
-        loss = criterion(outputs, targets)
-        loss.backward()
-        optimizer.step()
-        # Recording process
-        train_loss += loss.item()
-        _, predicted = outputs.max(1)
-        n_correct += predicted.eq(targets).sum().item()
-        n_total += targets.shape[0]
-    return train_loss / (batch_idx + 1), n_correct / n_total
 
 
 def evaluate(args, model, device, test_loader, is_test_set=False):
@@ -173,7 +154,7 @@ def evaluate(args, model, device, test_loader, is_test_set=False):
             model.t = target
             output = model(data)
             test_loss += F.nll_loss(output, target, reduction='sum').item()  # sum up batch loss
-            #test_loss += criterion(output, target).item()
+            #test_loss += criterion(output, target).item() * 100
             pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
             correct += pred.eq(target.view_as(pred)).sum().item()
             n += target.shape[0]
