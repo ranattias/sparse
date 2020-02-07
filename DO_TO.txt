@@ -47,3 +47,12 @@ usage: main.py [-h] [--batch-size N] [--test-batch-size N] [--epochs N]
                [--growth GROWTH] [--prune PRUNE]
                [--redistribution REDISTRIBUTION] [--prune-rate PRUNE_RATE]
                [--density DENSITY] [--dense] [--verbose]
+
+
+
+
+Contribution
+- ADD MOBILENET
+     - mobile class under "models.py' files
+- ADD FASHION MNIST
+    - Data loader  - maybe from first project

@@ -51,7 +51,7 @@ from torch.autograd import Variable
 from model import cifar10_WideResNet,mnist_mlp,imagenet_resnet50, mobilenet
 from parameterized_tensors import SparseTensor,TiedTensor
 from sparselearning.core import Masking, CosineDecay
-from sparselearning.models import AlexNet, VGG16, LeNet_300_100, LeNet_5_Caffe, WideResNet
+from sparselearning.models import AlexNet, VGG16, LeNet_300_100, LeNet_5_Caffe, WideResNet, mobilenet
 from sparselearning.utils import get_mnist_dataloaders, get_cifar10_dataloaders, plot_class_feature_histograms
 
 
