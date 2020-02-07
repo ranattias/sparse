@@ -18,7 +18,7 @@ import numpy as np
 
 import sparselearning
 from sparselearning.core import Masking, CosineDecay, LinearDecay
-from sparselearning.models import AlexNet, VGG16, LeNet_300_100, LeNet_5_Caffe, WideResNet
+from sparselearning.models import AlexNet, VGG16, LeNet_300_100, LeNet_5_Caffe, WideResNet,MobileNet
 from sparselearning.utils import get_mnist_dataloaders, get_cifar10_dataloaders, plot_class_feature_histograms
 
 from extensions import magnitude_variance_pruning, variance_redistribution
@@ -42,7 +42,7 @@ models['wrn-28-2'] = (WideResNet, [28, 2, 10, 0.3])
 models['wrn-22-8'] = (WideResNet, [22, 8, 10, 0.3])
 models['wrn-16-8'] = (WideResNet, [16, 8, 10, 0.3])
 models['wrn-16-10'] = (WideResNet, [16, 10, 10, 0.3])
-# rana: models['mobilenet'] ...
+models['MobileNet'] = (MobileNet, [1, 100]) # rana:
 
 def setup_logger(args):
     global logger

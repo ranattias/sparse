@@ -32,3 +32,18 @@ check usage:
 
 
 NOTE: ON PYCHARM CAN'T RUN WITH --BENCH BECAUSE THE IS NO CUDA(?)
+
+
+
+usage: main.py [-h] [--batch-size N] [--test-batch-size N] [--epochs N]
+               [--lr LR] [--momentum M] [--no-cuda] [--seed S]
+               [--log-interval N] [--optimizer OPTIMIZER]
+               [--save-model SAVE_MODEL] [--data DATA]
+               [--decay_frequency DECAY_FREQUENCY] [--l1 L1] [--fp16]
+               [--valid_split VALID_SPLIT] [--resume RESUME]
+               [--start-epoch START_EPOCH] [--model MODEL] [--l2 L2]
+               [--iters ITERS] [--save-features] [--bench]
+               [--max-threads MAX_THREADS] [--decay-schedule DECAY_SCHEDULE]
+               [--growth GROWTH] [--prune PRUNE]
+               [--redistribution REDISTRIBUTION] [--prune-rate PRUNE_RATE]
+               [--density DENSITY] [--dense] [--verbose]

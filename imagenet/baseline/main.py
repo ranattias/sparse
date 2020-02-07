@@ -48,7 +48,7 @@ import sys
 
 from torch.autograd import Variable
 
-from model import cifar10_WideResNet,mnist_mlp,imagenet_resnet50
+from model import cifar10_WideResNet,mnist_mlp,imagenet_resnet50, mobilenet
 from parameterized_tensors import SparseTensor,TiedTensor
 from sparselearning.core import Masking, CosineDecay
 from sparselearning.models import AlexNet, VGG16, LeNet_300_100, LeNet_5_Caffe, WideResNet
