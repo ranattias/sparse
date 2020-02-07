@@ -172,13 +172,10 @@ def evaluate(args, model, device, test_loader, is_test_set=False):
             if args.fp16: data = data.half()
             model.t = target
             output = model(data)
-            #rana: test_loss += F.nll_loss(output, target, reduction='sum').item()  # sum up batch loss
-            test_loss += criterion(output, target).item()
-            #pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
-            _, predicted = output.max(1)
-            #correct += pred.eq(target.view_as(pred)).sum().item()
-            correct += predicted.eq(target).sum().item()
-            #n += target.shape[0]
+            test_loss += F.nll_loss(output, target, reduction='sum').item()  # sum up batch loss
+            #test_loss += criterion(output, target).item()
+            pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
+            correct += pred.eq(target.view_as(pred)).sum().item()
             n += target.shape[0]
     test_loss /= float(n)
 
