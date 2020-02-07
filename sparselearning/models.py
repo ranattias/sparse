@@ -562,7 +562,8 @@ class MobileNet(nn.Module):
             num_classes: number of classes
         """
         super(MobileNet, self).__init__()
-
+        #rana:
+        self.bench = None if not bench_model else SparseSpeedupBench()
         block = DepthWiseBlock
 
         self.conv1 = nn.Conv2d(3, int(32 * widen_factor), kernel_size=3, stride=2, padding=1, bias=False)
