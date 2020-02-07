@@ -17,6 +17,9 @@ TO do:
             - add computation time to the tablel
     - go over the log files content
     - add all layer prune computation time to log file.-  see SparseSpeedupBench
+                                                                    move to use:  t0 = time.time()
+                                                                                    time.time() - t0)
+
 2   Go through core.py - trank, prune ---
 3. - plot histogram  -expecting alexnet.numpy ?  need to debug
 

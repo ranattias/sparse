@@ -555,13 +555,15 @@ class DepthWiseBlock(nn.Module):
 
 
 class MobileNet(nn.Module):
-    def __init__(self, widen_factor=1.0, num_classes=1000, prelu=False, save_features=False, bench_model=False):  #rana: save_features=False, bench_model=False not is use
+    def __init__(self, widen_factor=1.0, num_classes=1000, prelu=False, save_features=False, bench_model=False):  #rana: save_features and bench_model parameters is use
         """ Constructor
         Args:
             widen_factor: config of widen_factor
             num_classes: number of classes
         """
         super(MobileNet, self).__init__()
+        #rana:
+        self.bench = None if not bench_model else SparseSpeedupBench()
 
         block = DepthWiseBlock
 
@@ -638,50 +640,3 @@ def mobilenet(widen_factor=1.0, num_classes=1000):
     model = MobileNet(widen_factor=widen_factor, num_classes=num_classes)
     return model
 
-
-def mobilenet_2():
-    """
-    Construct MobileNet.
-    """
-    model = MobileNet(widen_factor=2.0, num_classes=1000)
-    return model
-
-
-def mobilenet_1():
-    """
-    Construct MobileNet.
-    """
-    model = MobileNet(widen_factor=1.0, num_classes=1000)
-    return model
-
-
-def mobilenet_075():
-    """
-    Construct MobileNet.
-    """
-    model = MobileNet(widen_factor=0.75, num_classes=1000)
-    return model
-
-
-def mobilenet_05():
-    """
-    Construct MobileNet.
-    """
-    model = MobileNet(widen_factor=0.5, num_classes=1000)
-    return model
-
-
-def mobilenet_025():
-    """
-    Construct MobileNet.
-    """
-    model = MobileNet(widen_factor=0.25, num_classes=1000)
-    return model
-
-
-def mobilenet_1prelu():
-    """
-    Construct MobileNet.
-    """
-    model = MobileNet(widen_factor=1.0, num_classes=1000, prelu=True)
-    return model
