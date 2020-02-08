@@ -6,6 +6,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class SparseSpeedupBench(object):
     """Class to benchmark speedups for convolutional layers.
 
@@ -21,6 +22,7 @@ class SparseSpeedupBench(object):
             outputs = self.conv_layer1(inputs)
     3. Speedups of the convolutional layer will be aggregated and print every 1000 mini-batches.
     """
+
     def __init__(self):
         self.layer_timings = {}
         self.layer_timings_channel_sparse = {}
@@ -32,12 +34,12 @@ class SparseSpeedupBench(object):
         self.total_timings_sparse = []
 
     def get_density(self, x):
-        return (x.data!=0.0).sum().item()/x.numel()
+        return (x.data != 0.0).sum().item() / x.numel()
 
     def print_weights(self, w, layer):
         # w dims: out, in, k1, k2
-        #outers = []
-        #for outer in range(w.shape[0]):
+        # outers = []
+        # for outer in range(w.shape[0]):
         #    inners = []
         #    for inner in range(w.shape[1]):
         #        n = np.prod(w.shape[2:])
@@ -45,8 +47,8 @@ class SparseSpeedupBench(object):
         #        #print(density, w[outer, inner])
         #        inners.append(density)
         #    outers.append([np.mean(inners), np.std(inner)])
-        #print(outers)
-        #print(w.shape, (w!=0.0).sum().item()/w.numel())
+        # print(outers)
+        # print(w.shape, (w!=0.0).sum().item()/w.numel())
         pass
 
     def forward(self, layer, x, layer_id):
@@ -58,7 +60,7 @@ class SparseSpeedupBench(object):
         sparse_channels_in = ((x.data != 0.0).sum([2, 3]) == 0.0).sum().item()
         num_channels_in = x.shape[1]
         batch_size = x.shape[0]
-        channel_sparsity_input = sparse_channels_in/float(num_channels_in*batch_size)
+        channel_sparsity_input = sparse_channels_in / float(num_channels_in * batch_size)
         input_sparsity = self.get_density(x)
 
         # bench dense layer
@@ -69,12 +71,12 @@ class SparseSpeedupBench(object):
         end.record()
         start.synchronize()
         end.synchronize()
-        time_taken_s = start.elapsed_time(end)/1000.0
+        time_taken_s = start.elapsed_time(end) / 1000.0
 
         # calc weight sparsity
         num_channels = layer.weight.shape[1]
         sparse_channels = ((layer.weight.data != 0.0).sum([0, 2, 3]) == 0.0).sum().item()
-        channel_sparsity_weight = sparse_channels/float(num_channels)
+        channel_sparsity_weight = sparse_channels / float(num_channels)
         weight_sparsity = self.get_density(layer.weight)
 
         # store sparse and dense timings
@@ -83,8 +85,9 @@ class SparseSpeedupBench(object):
             self.layer_timings_channel_sparse[layer_id] = []
             self.layer_timings_sparse[layer_id] = []
         self.layer_timings[layer_id].append(time_taken_s)
-        self.layer_timings_channel_sparse[layer_id].append(time_taken_s*(1.0-channel_sparsity_weight)*(1.0-channel_sparsity_input))
-        self.layer_timings_sparse[layer_id].append(time_taken_s*input_sparsity*weight_sparsity)
+        self.layer_timings_channel_sparse[layer_id].append(
+            time_taken_s * (1.0 - channel_sparsity_weight) * (1.0 - channel_sparsity_input))
+        self.layer_timings_sparse[layer_id].append(time_taken_s * input_sparsity * weight_sparsity)
 
         if self.iter_idx % 1000 == 0:
             self.print_layer_timings()
@@ -105,22 +108,31 @@ class SparseSpeedupBench(object):
             total_time_sparse += t_sparse
             total_time_channel_sparse += t_channel_sparse
 
-            print('Layer {0}: Dense {1:.6f} Channel Sparse {2:.6f} vs Full Sparse {3:.6f}'.format(layer_id, t_dense, t_channel_sparse, t_sparse))
+            print('Layer {0}: Dense {1:.6f} Channel Sparse {2:.6f} vs Full Sparse {3:.6f}'.format(layer_id, t_dense,
+                                                                                                  t_channel_sparse,
+                                                                                                  t_sparse))
         self.total_timings.append(total_time_dense)
         self.total_timings_sparse.append(total_time_sparse)
         self.total_timings_channel_sparse.append(total_time_channel_sparse)
 
         print('Speedups for this segment:')
-        print('Dense took {0:.4f}s. Channel Sparse took {1:.4f}s. Speedup of {2:.4f}x'.format(total_time_dense, total_time_channel_sparse, total_time_dense/total_time_channel_sparse))
-        print('Dense took {0:.4f}s. Sparse took {1:.4f}s. Speedup of {2:.4f}x'.format(total_time_dense, total_time_sparse, total_time_dense/total_time_sparse))
+        print('Dense took {0:.4f}s. Channel Sparse took {1:.4f}s. Speedup of {2:.4f}x'.format(total_time_dense,
+                                                                                              total_time_channel_sparse,
+                                                                                              total_time_dense / total_time_channel_sparse))
+        print(
+            'Dense took {0:.4f}s. Sparse took {1:.4f}s. Speedup of {2:.4f}x'.format(total_time_dense, total_time_sparse,
+                                                                                    total_time_dense / total_time_sparse))
         print('\n')
 
         total_dense = np.sum(self.total_timings)
         total_sparse = np.sum(self.total_timings_sparse)
         total_channel_sparse = np.sum(self.total_timings_channel_sparse)
         print('Speedups for entire training:')
-        print('Dense took {0:.4f}s. Channel Sparse took {1:.4f}s. Speedup of {2:.4f}x'.format(total_dense, total_channel_sparse, total_dense/total_channel_sparse))
-        print('Dense took {0:.4f}s. Sparse took {1:.4f}s. Speedup of {2:.4f}x'.format(total_dense, total_sparse, total_dense/total_sparse))
+        print('Dense took {0:.4f}s. Channel Sparse took {1:.4f}s. Speedup of {2:.4f}x'.format(total_dense,
+                                                                                              total_channel_sparse,
+                                                                                              total_dense / total_channel_sparse))
+        print('Dense took {0:.4f}s. Sparse took {1:.4f}s. Speedup of {2:.4f}x'.format(total_dense, total_sparse,
+                                                                                      total_dense / total_sparse))
         print('\n')
 
         # clear timings
@@ -128,7 +140,6 @@ class SparseSpeedupBench(object):
             self.layer_timings.pop(layer_id)
             self.layer_timings_channel_sparse.pop(layer_id)
             self.layer_timings_sparse.pop(layer_id)
-
 
 
 class AlexNet(nn.Module):
@@ -153,7 +164,7 @@ class AlexNet(nn.Module):
         self.densities = []
         self.bench = None if not bench_model else SparseSpeedupBench()
 
-        factor = 1 if config=='s' else 2
+        factor = 1 if config == 's' else 2
         self.features = nn.Sequential(
             nn.Conv2d(3, 96, kernel_size=11, stride=2, padding=2, bias=True),
             nn.BatchNorm2d(96),
@@ -172,13 +183,13 @@ class AlexNet(nn.Module):
             nn.ReLU(inplace=True),
         )
         self.classifier = nn.Sequential(
-            nn.Linear(256, 1024*factor),
-            nn.BatchNorm1d(1024*factor),
+            nn.Linear(256, 1024 * factor),
+            nn.BatchNorm1d(1024 * factor),
             nn.ReLU(inplace=True),
-            nn.Linear(1024*factor, 1024*factor),
-            nn.BatchNorm1d(1024*factor),
+            nn.Linear(1024 * factor, 1024 * factor),
+            nn.BatchNorm1d(1024 * factor),
             nn.ReLU(inplace=True),
-            nn.Linear(1024*factor, num_classes),
+            nn.Linear(1024 * factor, num_classes),
         )
 
     def forward(self, x):
@@ -192,11 +203,12 @@ class AlexNet(nn.Module):
                 if isinstance(layer, nn.ReLU):
                     self.feats.append(x.clone().detach())
                 if isinstance(layer, nn.Conv2d):
-                    self.densities.append((layer.weight.data != 0.0).sum().item()/layer.weight.numel())
+                    self.densities.append((layer.weight.data != 0.0).sum().item() / layer.weight.numel())
 
         x = x.view(x.size(0), -1)
         x = self.classifier(x)
         return F.log_softmax(x, dim=1)
+
 
 class LeNet_300_100(nn.Module):
     """Simple NN with hidden layers [300, 100]
@@ -204,20 +216,20 @@ class LeNet_300_100(nn.Module):
     Based on https://github.com/mi-lad/snip/blob/master/train.py
     by Milad Alizadeh.
     """
+
     def __init__(self, save_features=None, bench_model=False):
         super(LeNet_300_100, self).__init__()
-        self.fc1 = nn.Linear(28*28, 300, bias=True)
+        self.fc1 = nn.Linear(28 * 28, 300, bias=True)
         self.fc2 = nn.Linear(300, 100, bias=True)
         self.fc3 = nn.Linear(100, 10, bias=True)
         self.mask = None
 
     def forward(self, x):
-        x0 = x.view(-1, 28*28)
+        x0 = x.view(-1, 28 * 28)
         x1 = F.relu(self.fc1(x0))
         x2 = F.relu(self.fc2(x1))
         x3 = self.fc3(x2)
         return F.log_softmax(x3, dim=1)
-
 
 
 class LeNet_5_Caffe(nn.Module):
@@ -260,7 +272,7 @@ VGG_CONFIGS = {
     ],
     'C': [
         64, 64, 'M', 128, 128, 'M', 256, 256, (1, 256), 'M', 512, 512, (1, 512), 'M',
-        512, 512, (1, 512), 'M' # tuples indicate (kernel size, output channels)
+        512, 512, (1, 512), 'M'  # tuples indicate (kernel size, output channels)
     ]
 }
 
@@ -333,6 +345,9 @@ class VGG16(nn.Module):
 
     def forward(self, x):
         for layer_id, layer in enumerate(self.features):
+            print(layer)
+            print('is Conv ', isinstance(layer, nn.Conv2d))
+
             if self.bench is not None and isinstance(layer, nn.Conv2d):
                 x = self.bench.forward(layer, x, layer_id)
             else:
@@ -341,13 +356,12 @@ class VGG16(nn.Module):
             if self.save_features:
                 if isinstance(layer, nn.ReLU):
                     self.feats.append(x.clone().detach())
-                    self.densities.append((x.data != 0.0).sum().item()/x.numel())
+                    self.densities.append((x.data != 0.0).sum().item() / x.numel())
 
         x = x.view(x.size(0), -1)
         x = self.classifier(x)
         x = F.log_softmax(x, dim=1)
         return x
-
 
 
 class WideResNet(nn.Module):
@@ -356,10 +370,11 @@ class WideResNet(nn.Module):
     For more info, see the paper: Wide Residual Networks by Sergey Zagoruyko, Nikos Komodakis
     https://arxiv.org/abs/1605.07146
     """
+
     def __init__(self, depth, widen_factor, num_classes=10, dropRate=0.3, save_features=False, bench_model=False):
         super(WideResNet, self).__init__()
-        nChannels = [16, 16*widen_factor, 32*widen_factor, 64*widen_factor]
-        assert((depth - 4) % 6 == 0)
+        nChannels = [16, 16 * widen_factor, 32 * widen_factor, 64 * widen_factor]
+        assert ((depth - 4) % 6 == 0)
         n = (depth - 4) / 6
         block = BasicBlock
         # 1st conv before any network block
@@ -367,11 +382,14 @@ class WideResNet(nn.Module):
                                padding=1, bias=False)
         self.bench = None if not bench_model else SparseSpeedupBench()
         # 1st block
-        self.block1 = NetworkBlock(n, nChannels[0], nChannels[1], block, 1, dropRate, save_features=save_features, bench=self.bench)
+        self.block1 = NetworkBlock(n, nChannels[0], nChannels[1], block, 1, dropRate, save_features=save_features,
+                                   bench=self.bench)
         # 2nd block
-        self.block2 = NetworkBlock(n, nChannels[1], nChannels[2], block, 2, dropRate, save_features=save_features, bench=self.bench)
+        self.block2 = NetworkBlock(n, nChannels[1], nChannels[2], block, 2, dropRate, save_features=save_features,
+                                   bench=self.bench)
         # 3rd block
-        self.block3 = NetworkBlock(n, nChannels[2], nChannels[3], block, 2, dropRate, save_features=save_features, bench=self.bench)
+        self.block3 = NetworkBlock(n, nChannels[2], nChannels[3], block, 2, dropRate, save_features=save_features,
+                                   bench=self.bench)
         # global average pooling and classifier
         self.bn1 = nn.BatchNorm2d(nChannels[3])
         self.relu = nn.ReLU(inplace=True)
@@ -429,6 +447,7 @@ class BasicBlock(nn.Module):
     For more info, see the paper: Wide Residual Networks by Sergey Zagoruyko, Nikos Komodakis
     https://arxiv.org/abs/1605.07146
     """
+
     def __init__(self, in_planes, out_planes, stride, dropRate=0.0, save_features=False, bench=None):
         super(BasicBlock, self).__init__()
         self.bn1 = nn.BatchNorm2d(in_planes)
@@ -442,7 +461,7 @@ class BasicBlock(nn.Module):
         self.droprate = dropRate
         self.equalInOut = (in_planes == out_planes)
         self.convShortcut = (not self.equalInOut) and nn.Conv2d(in_planes, out_planes, kernel_size=1, stride=stride,
-                               padding=0, bias=False) or None
+                                                                padding=0, bias=False) or None
         self.feats = []
         self.densities = []
         self.save_features = save_features
@@ -455,12 +474,12 @@ class BasicBlock(nn.Module):
             x = self.relu1(self.bn1(x))
             if self.save_features:
                 self.feats.append(x.clone().detach())
-                self.densities.append((x.data != 0.0).sum().item()/x.numel())
+                self.densities.append((x.data != 0.0).sum().item() / x.numel())
         else:
             out = self.relu1(self.bn1(x))
             if self.save_features:
                 self.feats.append(out.clone().detach())
-                self.densities.append((out.data != 0.0).sum().item()/out.numel())
+                self.densities.append((out.data != 0.0).sum().item() / out.numel())
         if self.bench:
             out0 = self.bench.forward(self.conv1, (out if self.equalInOut else x), str(self.in_planes) + '.conv1')
         else:
@@ -469,7 +488,7 @@ class BasicBlock(nn.Module):
         out = self.relu2(self.bn2(out0))
         if self.save_features:
             self.feats.append(out.clone().detach())
-            self.densities.append((out.data != 0.0).sum().item()/out.numel())
+            self.densities.append((out.data != 0.0).sum().item() / out.numel())
         if self.droprate > 0:
             out = F.dropout(out, p=self.droprate, training=self.training)
         if self.bench:
@@ -479,12 +498,14 @@ class BasicBlock(nn.Module):
 
         return torch.add(x if self.equalInOut else self.convShortcut(x), out)
 
+
 class NetworkBlock(nn.Module):
     """Wide Residual Network network block which holds basic blocks.
 
     For more info, see the paper: Wide Residual Networks by Sergey Zagoruyko, Nikos Komodakis
     https://arxiv.org/abs/1605.07146
     """
+
     def __init__(self, nb_layers, in_planes, out_planes, block, stride, dropRate=0.0, save_features=False, bench=None):
         super(NetworkBlock, self).__init__()
         self.feats = []
@@ -496,7 +517,8 @@ class NetworkBlock(nn.Module):
     def _make_layer(self, block, in_planes, out_planes, nb_layers, stride, dropRate):
         layers = []
         for i in range(int(nb_layers)):
-            layers.append(block(i == 0 and in_planes or out_planes, out_planes, i == 0 and stride or 1, dropRate, save_features=self.save_features, bench=self.bench))
+            layers.append(block(i == 0 and in_planes or out_planes, out_planes, i == 0 and stride or 1, dropRate,
+                                save_features=self.save_features, bench=self.bench))
         return nn.Sequential(*layers)
 
     def forward(self, x):
@@ -510,9 +532,94 @@ class NetworkBlock(nn.Module):
         return x
 
 
+
 class MobileNet(nn.Module):
-    def __init__(self, widen_factor=1.0, num_classes=1000, prelu=False, save_features=False, bench_model=False):
+
+    def __init__(self, widen_factor=1.0, num_classes=1000, prelu=False, save_features=False, bench_model=True):
         super(MobileNet, self).__init__()
+        #self.features = self.make_layers()
+        self.save_features = save_features
+        self.feats = []
+        self.densities = []
+        self.bench = None if not bench_model else SparseSpeedupBench()
+
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                m.weight.data.normal_(0, math.sqrt(2. / n))
+            elif isinstance(m, nn.BatchNorm2d):
+                m.weight.data.fill_(1)
+                m.bias.data.zero_()
+            elif isinstance(m, nn.Linear):
+                m.bias.data.zero_()
+
+
+        def conv_dw(inp, oup, stride):
+            return (
+                [nn.Conv2d(inp, inp, 3, stride, 1, groups=inp, bias=False),
+                nn.BatchNorm2d(inp),
+                nn.ReLU(inplace=True),
+
+                nn.Conv2d(inp, oup, 1, 1, 0, bias=False),
+                nn.BatchNorm2d(oup),
+                nn.ReLU(inplace=True)]
+            )
+
+        def conv_bn(inp, oup, stride):
+            return (
+                [nn.Conv2d(inp, oup, 3, stride, 1, bias=False),
+                nn.BatchNorm2d(oup),
+                nn.ReLU(inplace=True)]
+            )
+
+        layers = []
+        layers += conv_bn(3, 32, 2)
+        layers += conv_dw(32, 64, 1)
+        layers += conv_dw(64, 128, 2)
+        layers += conv_dw(128, 128, 1)
+        layers += conv_dw(128, 256, 2)
+        layers += conv_dw(256, 256, 1)
+        layers += conv_dw(256, 512, 2)
+        layers += conv_dw(512, 512, 1)
+        layers += conv_dw(512, 512, 1)
+        layers += conv_dw(512, 512, 1)
+        layers += conv_dw(512, 512, 1)
+        layers += conv_dw(512, 512, 1)
+        layers += conv_dw(512, 1024, 2)
+        layers += conv_dw(1024, 1024, 1)
+        layers += [nn.AvgPool2d(1)]
+
+        self.features = nn.Sequential(*layers)
+
+        self.fc = nn.Linear(1024, num_classes)
+
+
+
+    def forward(self, x):
+        for layer_id, layer in enumerate(self.features):
+            if self.bench is not None and isinstance(layer, nn.Conv2d):
+                x = self.bench.forward(layer, x, layer_id)
+            else:
+                x = layer(x)
+
+        if self.save_features:
+            if isinstance(layer, nn.ReLU):
+                self.feats.append(x.clone().detach())
+            if isinstance(layer, nn.Conv2d):
+                self.densities.append((layer.weight.data != 0.0).sum().item() / layer.weight.numel())
+
+        x = x.view(-1, 1024)
+        x = self.fc(x)
+        # rana: return x
+        return F.log_softmax(x, dim=1)
+
+
+
+class MobileNet_NOT_IN_USE3(nn.Module):
+
+    def __init__(self, widen_factor=1.0, num_classes=1000, prelu=False, save_features=False, bench_model=True):
+        super(MobileNet, self).__init__()
+        self.features =[]
         self.save_features = save_features
         self.feats = []
         self.densities = []
@@ -536,6 +643,8 @@ class MobileNet(nn.Module):
                 nn.ReLU(inplace=True),
             )
 
+
+
         self.features = nn.Sequential(
             conv_bn(3, 32, 2),
             conv_dw(32, 64, 1),
@@ -555,6 +664,17 @@ class MobileNet(nn.Module):
         )
         self.fc = nn.Linear(1024, num_classes)
 
+
+        for m in self.features:
+            if isinstance(m, nn.Conv2d):
+                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                m.weight.data.normal_(0, math.sqrt(2. / n))
+            elif isinstance(m, nn.BatchNorm2d):
+                m.weight.data.fill_(1)
+                m.bias.data.zero_()
+            elif isinstance(m, nn.Linear):
+                m.bias.data.zero_()
+
     def forward(self, x):
         for layer_id, layer in enumerate(self.features):
             if self.bench is not None and isinstance(layer, nn.Conv2d):
@@ -562,15 +682,17 @@ class MobileNet(nn.Module):
             else:
                 x = layer(x)
 
-            if self.save_features:
-                if isinstance(layer, nn.ReLU):
-                    self.feats.append(x.clone().detach())
-                if isinstance(layer, nn.Conv2d):
-                    self.densities.append((layer.weight.data != 0.0).sum().item()/layer.weight.numel())
+        if self.save_features:
+            if isinstance(layer, nn.ReLU):
+                self.feats.append(x.clone().detach())
+            if isinstance(layer, nn.Conv2d):
+                self.densities.append((layer.weight.data != 0.0).sum().item() / layer.weight.numel())
 
         x = x.view(-1, 1024)
         x = self.fc(x)
-        return x
+        # rana: return x
+        return F.log_softmax(x, dim=1)
+
 
 
 
@@ -583,7 +705,7 @@ Copyright (c) Yang Lu, 2017
 import math
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.nn import init
+from torch.nn import init, Sequential
 import torch
 
 __all__ = ['mobilenet_2', 'mobilenet_1', 'mobilenet_075', 'mobilenet_05', 'mobilenet_025',
@@ -605,7 +727,7 @@ class DepthWiseBlock(nn.Module):
             self.relu = nn.ReLU(inplace=True)
 
     def forward(self, x):
-        
+
         out = self.conv_dw(x)
         out = self.bn_dw(out)
         out = self.relu(out)
@@ -617,16 +739,16 @@ class DepthWiseBlock(nn.Module):
         return out
 
 
-
-class MobileNet_delete (nn.Module):
-    def __init__(self, widen_factor=1.0, num_classes=1000, prelu=False, save_features=False, bench_model=False):  #rana: save_features and bench_model parameters is use
+class MobileNet_NOT_IT_USE_1(nn.Module):
+    def __init__(self, widen_factor=1.0, num_classes=1000, prelu=False, save_features=False,
+                 bench_model=False):  # rana: save_features and bench_model parameters is use
         """ Constructor
         Args:
             widen_factor: config of widen_factor
             num_classes: number of classes
         """
         super(MobileNet, self).__init__()
-        #rana:
+        # rana:
         self.bench = None if not bench_model else SparseSpeedupBench()
 
         block = DepthWiseBlock
@@ -703,4 +825,59 @@ def mobilenet(widen_factor=1.0, num_classes=1000):
     """
     model = MobileNet(widen_factor=widen_factor, num_classes=num_classes)
     return model
+
+
+
+class Block(nn.Module):
+
+    def __init__(self, in_planes, out_planes, stride=1):
+        super(Block, self).__init__()
+        self.conv1 = nn.Conv2d(in_planes, in_planes, kernel_size=3, stride=stride,
+                               padding=1, groups=in_planes, bias=False)
+        self.bn1 = nn.BatchNorm2d(in_planes)
+        self.conv2 = nn.Conv2d(in_planes, out_planes, kernel_size=1, stride=1, padding=0, bias=False)
+        self.bn2 = nn.BatchNorm2d(out_planes)
+
+    def forward(self, x):
+        out = F.relu(self.bn1(self.conv1(x)))
+        out = F.relu(self.bn2(self.conv2(out)))
+        return out
+
+
+class MobileNet_NOT_IN_USE_2 (nn.Module):
+    cfg = [64, (128, 2), 128, (256, 2), 256, (512, 2), 512, 512, 512, 512, 512, (1024, 2), 1024]
+
+    # rana def __init__(self, num_classes=10):
+    def __init__(self, widen_factor=1.0, num_classes=1000, prelu=False, save_features=False, bench_model=True):
+
+        super(MobileNet, self).__init__()
+        self.conv1 = nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1, bias=False)
+        self.bn1 = nn.BatchNorm2d(32)
+        self.layers = self._make_layers(in_planes=32)
+        self.linear = nn.Linear(1024, num_classes)
+
+    def _make_layers(self, in_planes):
+        layers = []
+        for x in self.cfg:
+            if isinstance(x, int):
+                out_planes = x
+                stride = 1
+            else:
+                out_planes = x[0]
+                stride = x[1]
+            layers.append(Block(in_planes, out_planes, stride))
+            in_planes = out_planes
+        return nn.Sequential(*layers)
+
+    def forward(self, x):
+        for layer_id, layer in enumerate(self.layers):
+            print(layer)
+            print('is Conv ', isinstance(layer, nn.Conv2d))
+
+        out = F.relu(self.bn1(self.conv1(x)))
+        out = self.layers(out)
+        out = F.avg_pool2d(out, 2)
+        out = out.view(out.size(0), -1)
+        out = self.linear(out)
+        return out
 

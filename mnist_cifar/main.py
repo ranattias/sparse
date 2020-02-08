@@ -122,8 +122,8 @@ def train(args, model, device, train_loader, optimizer, epoch, lr_scheduler, mas
         output = model(data)
 
         # rana:
-        #loss = F.nll_loss(output, target)
-        loss = criterion(output, target)
+        loss = F.nll_loss(output, target)
+        #loss = criterion(output, target)
 
         if args.fp16:
             optimizer.backward(loss)
