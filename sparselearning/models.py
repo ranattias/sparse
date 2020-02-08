@@ -537,21 +537,14 @@ class MobileNet(nn.Module):
 
     def __init__(self, widen_factor=1.0, num_classes=1000, prelu=False, save_features=False, bench_model=True):
         super(MobileNet, self).__init__()
-        #self.features = self.make_layers()
+        layers = []
+
+
         self.save_features = save_features
         self.feats = []
         self.densities = []
         self.bench = None if not bench_model else SparseSpeedupBench()
 
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
-                m.weight.data.normal_(0, math.sqrt(2. / n))
-            elif isinstance(m, nn.BatchNorm2d):
-                m.weight.data.fill_(1)
-                m.bias.data.zero_()
-            elif isinstance(m, nn.Linear):
-                m.bias.data.zero_()
 
 
         def conv_dw(inp, oup, stride):
@@ -572,7 +565,9 @@ class MobileNet(nn.Module):
                 nn.ReLU(inplace=True)]
             )
 
-        layers = []
+
+
+
         layers += conv_bn(3, 32, 2)
         layers += conv_dw(32, 64, 1)
         layers += conv_dw(64, 128, 2)
@@ -593,6 +588,15 @@ class MobileNet(nn.Module):
 
         self.fc = nn.Linear(1024, num_classes)
 
+        for m in self.features:
+            if isinstance(m, nn.Conv2d):
+                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                m.weight.data.normal_(0, math.sqrt(2. / n))
+            elif isinstance(m, nn.BatchNorm2d):
+                m.weight.data.fill_(1)
+                m.bias.data.zero_()
+            elif isinstance(m, nn.Linear):
+                m.bias.data.zero_()
 
 
     def forward(self, x):
