@@ -32,6 +32,8 @@ if not os.path.exists('./models'): os.mkdir('./models')
 if not os.path.exists('./logs'): os.mkdir('./logs')
 logger = None
 
+
+
 #rana:
 save_model_dir = 'checkpoint/'
 data_file = 'input'
@@ -87,38 +89,7 @@ def print_and_log(msg):
     global logger
     print(msg)
     logger.info(msg)
-"""
-def train(args, model, device, train_loader, optimizer, epoch, lr_scheduler, mask=None):
-    model.train()
-    for batch_idx, (data, target) in enumerate(train_loader):
-        if lr_scheduler is not None: lr_scheduler.step()
-        data, target = data.to(device), target.to(device)
-        if args.fp16: data = data.half()
-        optimizer.zero_grad()
-        output = model(data)
 
-        # rana:
-        loss = F.nll_loss(output, target)
-        # loss = CrossEntropyLoss()
-
-        if args.fp16:
-            optimizer.backward(loss)
-        else:
-            loss.backward()
-
-        if mask is not None:
-            mask.step()
-        else:
-            optimizer.step()
-
-        if batch_idx % args.log_interval == 0:
-            print_and_log('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                epoch, batch_idx * len(data), len(train_loader) * args.batch_size,
-                       100. * batch_idx / len(train_loader), loss.item()))
-"""
-
-# rana:
-criterion = nn.CrossEntropyLoss()
 
 def train(args, model, device, train_loader, optimizer, epoch, lr_scheduler, mask=None):
     model.train()
@@ -166,7 +137,8 @@ def evaluate(args, model, device, test_loader, is_test_set=False):
     print_and_log('\n{}: Average loss: {:.4f}, Accuracy: {}/{} ({:.3f}%)\n'.format(
         'Test evaluation' if is_test_set else 'Evaluation',
         test_loss, correct, n, 100. * correct / float(n)))
-    return correct / float(n)
+    #rana: return correct / float(n)
+    return test_loss
 
 
 
@@ -174,12 +146,14 @@ def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
     torch.save(state, filename)
     if is_best:
         shutil.copyfile(filename, 'model_best.pth.tar')
-        #rana:
         print('saved checkpoint')
 
 
 def main():
+    best_prec1 = 0
+
     # Training settings
+
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
     parser.add_argument('--batch-size', type=int, default=100, metavar='N',
                         help='input batch size for training (default: 100)')
@@ -291,12 +265,9 @@ def main():
                 os.mkdir(save_model_dir)
             load_path = glob.glob(load_model_dir + 'checkpoint-*-0.9*')
 
-            #rana: if os.path.isfile(args.resume):
-            if len(load_path) > 0:
+            if os.path.isfile(args.resume):
                 print_and_log("=> loading checkpoint '{}'".format(args.resume))
-                load_path = load_path[-1]
-                checkpoint = torch.load(load_path)
-                #rana:    checkpoint = torch.load(args.resume)
+                checkpoint = torch.load(args.resume)
                 args.start_epoch = checkpoint['epoch']
                 model.load_state_dict(checkpoint['state_dict'])
                 optimizer.load_state_dict(checkpoint['optimizer'])
@@ -334,14 +305,21 @@ def main():
         for epoch in range(1, args.epochs + 1):
             t0 = time.time()
             train(args, model, device, train_loader, optimizer, epoch, lr_scheduler, mask)
-            print('here')
             if args.valid_split > 0.0:
-                val_acc = evaluate(args, model, device, valid_loader)
+                prec1 = evaluate(args, model, device, valid_loader)
 
-            save_checkpoint({'epoch': epoch + 1,
-                             'state_dict': model.state_dict(),
-                             'optimizer': optimizer.state_dict()},
-                            is_best=False, filename=args.save_model)
+
+            # remember best prec@1 and save checkpoint
+            is_best = prec1 > best_prec1
+            best_prec1 = max(prec1, best_prec1)
+            save_checkpoint({
+                'epoch': epoch + 1,
+                'arch': args.model,
+                'state_dict': model.state_dict(),
+                'best_prec1': best_prec1,
+                'optimizer': optimizer.state_dict(),
+            }, is_best)
+
 
             if not args.dense and epoch < args.epochs:
                 mask.at_end_of_epoch()
@@ -351,6 +329,7 @@ def main():
 
         evaluate(args, model, device, test_loader, is_test_set=True)
         print_and_log("\nIteration end: {0}/{1}\n".format(i + 1, args.iters))
+
 
 
 if __name__ == '__main__':
