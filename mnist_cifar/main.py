@@ -7,7 +7,7 @@ import argparse
 import logging
 import hashlib
 import copy
-
+import glob
 # =================================================================================
 
 import torch
@@ -31,6 +31,14 @@ cudnn.deterministic = True
 if not os.path.exists('./models'): os.mkdir('./models')
 if not os.path.exists('./logs'): os.mkdir('./logs')
 logger = None
+
+#rana:
+save_model_dir = 'checkpoint/'
+data_file = 'input'
+load_model_dir = 'checkpoint/'
+print(os.listdir('input'))
+
+
 
 models = {}
 models['lenet5'] = (LeNet_5_Caffe, [])
@@ -120,10 +128,7 @@ def train(args, model, device, train_loader, optimizer, epoch, lr_scheduler, mas
         if args.fp16: data = data.half()
         optimizer.zero_grad()
         output = model(data)
-
-        # rana:
         loss = F.nll_loss(output, target)
-        #loss = criterion(output, target)
 
         if args.fp16:
             optimizer.backward(loss)
@@ -141,7 +146,6 @@ def train(args, model, device, train_loader, optimizer, epoch, lr_scheduler, mas
                        100. * batch_idx / len(train_loader), loss.item()))
 
 
-""" rana
 def evaluate(args, model, device, test_loader, is_test_set=False):
     model.eval()
     test_loss = 0
@@ -154,7 +158,6 @@ def evaluate(args, model, device, test_loader, is_test_set=False):
             model.t = target
             output = model(data)
             test_loss += F.nll_loss(output, target, reduction='sum').item()  # sum up batch loss
-            #test_loss += criterion(output, target).item() * 100
             pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
             correct += pred.eq(target.view_as(pred)).sum().item()
             n += target.shape[0]
@@ -164,49 +167,6 @@ def evaluate(args, model, device, test_loader, is_test_set=False):
         'Test evaluation' if is_test_set else 'Evaluation',
         test_loss, correct, n, 100. * correct / float(n)))
     return correct / float(n)
-"""
-def evaluate(args, model, device, test_loader, is_test_set=False):
-    model.eval()
-    test_loss = 0
-    correct = 0
-    n = 0
-    with torch.no_grad():
-        for data, target in test_loader:
-            data, target = data.to(device), target.to(device)
-            if args.fp16: data = data.half()
-            model.t = target
-            output = model(data)
-            #rana: test_loss += F.nll_loss(output, target, reduction='sum').item()  # sum up batch loss
-            test_loss += criterion(output, target).item() *100
-            #pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
-            _, predicted = output.max(1)
-            #correct += pred.eq(target.view_as(pred)).sum().item()
-            correct += predicted.eq(target).sum().item()
-            n += target.shape[0]
-    test_loss /= float(n)
-
-    print_and_log('\n{}: Average loss: {:.4f}, Accuracy: {}/{} ({:.3f}%)\n'.format(
-        'Test evaluation' if is_test_set else 'Evaluation',
-        test_loss, correct, n, 100. * correct / float(n)))
-    return correct / float(n)
-
-def get_loss_acc(is_test_dataset = True):
-    mobilenet.eval()
-    dataloader = testloader if is_test_dataset else trainloader
-    n_correct = 0
-    n_total = 0
-    test_loss = 0
-    with torch.no_grad():
-        for batch_idx, (inputs, targets) in enumerate(dataloader):
-            inputs, targets = inputs.to(device), targets.to(device)
-#         Recording process
-            outputs = mobilenet(inputs)
-            test_loss += criterion(outputs, targets).item()
-            _, predicted = outputs.max(1)
-            n_correct += predicted.eq(targets).sum().item()
-            n_total += targets.shape[0]
-    return test_loss/(batch_idx+1),n_correct/n_total
-
 
 
 
@@ -214,6 +174,8 @@ def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
     torch.save(state, filename)
     if is_best:
         shutil.copyfile(filename, 'model_best.pth.tar')
+        #rana:
+        print('saved checkpoint')
 
 
 def main():
@@ -325,9 +287,16 @@ def main():
         lr_scheduler = optim.lr_scheduler.StepLR(optimizer, args.decay_frequency, gamma=0.1)
 
         if args.resume:
-            if os.path.isfile(args.resume):
+            if not os.path.isdir(save_model_dir):
+                os.mkdir(save_model_dir)
+            load_path = glob.glob(load_model_dir + 'checkpoint-*-0.9*')
+
+            #rana: if os.path.isfile(args.resume):
+            if len(load_path) > 0:
                 print_and_log("=> loading checkpoint '{}'".format(args.resume))
-                checkpoint = torch.load(args.resume)
+                load_path = load_path[-1]
+                checkpoint = torch.load(load_path)
+                #rana:    checkpoint = torch.load(args.resume)
                 args.start_epoch = checkpoint['epoch']
                 model.load_state_dict(checkpoint['state_dict'])
                 optimizer.load_state_dict(checkpoint['optimizer'])
@@ -338,6 +307,8 @@ def main():
                 model.feats = []
                 model.densities = []
                 plot_class_feature_histograms(args, model, device, train_loader, optimizer)
+
+
             else:
                 print_and_log("=> no checkpoint found at '{}'".format(args.resume))
 
@@ -363,7 +334,7 @@ def main():
         for epoch in range(1, args.epochs + 1):
             t0 = time.time()
             train(args, model, device, train_loader, optimizer, epoch, lr_scheduler, mask)
-
+            print('here')
             if args.valid_split > 0.0:
                 val_acc = evaluate(args, model, device, valid_loader)
 
