@@ -32,15 +32,8 @@ if not os.path.exists('./models'): os.mkdir('./models')
 if not os.path.exists('./logs'): os.mkdir('./logs')
 logger = None
 
-
-
-#rana:
 save_model_dir = 'checkpoint/'
-data_file = 'input'
 load_model_dir = 'checkpoint/'
-print(os.listdir('input'))
-
-
 
 models = {}
 models['lenet5'] = (LeNet_5_Caffe, [])
@@ -260,13 +253,15 @@ def main():
 
         lr_scheduler = optim.lr_scheduler.StepLR(optimizer, args.decay_frequency, gamma=0.1)
 
-        if args.resume:
-            if not os.path.isdir(save_model_dir):
-                os.mkdir(save_model_dir)
-            load_path = glob.glob(load_model_dir + 'checkpoint-*-0.9*')
+        if not os.path.isdir(os.path.join(save_model_dir, args.model)):
+            os.mkdir(os.path.join(save_model_dir, args.model))
 
-            if os.path.isfile(args.resume):
-                print_and_log("=> loading checkpoint '{}'".format(args.resume))
+        load_path =os.path.join(save_model_dir, args.model,"checkpoint.pth.tar" )
+
+        if args.resume:
+            #ranaif os.path.isfile(args.resume):
+            if os.path.isfile(load_path):
+                print_and_log("=> loading checkpoint '{}'".format(args.model+ "_checkpoint.pth.tar"))
                 checkpoint = torch.load(args.resume)
                 args.start_epoch = checkpoint['epoch']
                 model.load_state_dict(checkpoint['state_dict'])
@@ -318,7 +313,7 @@ def main():
                 'state_dict': model.state_dict(),
                 'best_prec1': best_prec1,
                 'optimizer': optimizer.state_dict(),
-            }, is_best)
+            }, is_best,(format(args.model)+"/checkpoint.pth.tar"))
 
 
             if not args.dense and epoch < args.epochs:
