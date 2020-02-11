@@ -254,6 +254,10 @@ def main():
             raise Exception('Unknown optimizer.')
 
         lr_scheduler = optim.lr_scheduler.StepLR(optimizer, args.decay_frequency, gamma=0.1)
+        
+        if not os.path.isdir(save_model_dir):
+            os.mkdir(save_model_dir)
+
 
         if not os.path.isdir(os.path.join(save_model_dir, args.model)):
             os.mkdir(os.path.join(save_model_dir, args.model))
@@ -304,10 +308,12 @@ def main():
             train(args, model, device, train_loader, optimizer, epoch, lr_scheduler, mask)
             if args.valid_split > 0.0:
                 prec1 = evaluate(args, model, device, valid_loader)
+                print("prec1:{}", prec1)
 
 
             # remember best prec@1 and save checkpoint
             is_best = prec1 > best_prec1
+            print("is best :{}", is_best)
             best_prec1 = max(prec1, best_prec1)
             save_checkpoint({
                 'epoch': epoch + 1,
