@@ -258,18 +258,18 @@ def main():
         if not os.path.isdir(os.path.join(save_model_dir, args.model)):
             os.mkdir(os.path.join(save_model_dir, args.model))
 
-        load_path =os.path.join(save_model_dir, args.model,"checkpoint.pth.tar" )
+        load_path =os.path.join(save_model_dir, args.model,"model_best.pth.tar" )
 
         if args.resume:
             #ranaif os.path.isfile(args.resume):
             if os.path.isfile(load_path):
-                print_and_log("=> loading checkpoint '{}'".format(args.model+ "_checkpoint.pth.tar"))
-                checkpoint = torch.load(args.resume)
+                print_and_log("=> loading checkpoint: '{}'".format(load_path)) #format( args.model+ "_checkpoint.pth.tar"))
+                checkpoint = torch.load(load_path)
                 args.start_epoch = checkpoint['epoch']
                 model.load_state_dict(checkpoint['state_dict'])
                 optimizer.load_state_dict(checkpoint['optimizer'])
                 print_and_log("=> loaded checkpoint '{}' (epoch {})"
-                              .format(args.resume, checkpoint['epoch']))
+                              .format(load_path, checkpoint['epoch']))
                 print_and_log('Testing...')
                 evaluate(args, model, device, test_loader)
                 model.feats = []
