@@ -145,7 +145,7 @@ def save_checkpoint(state, is_best, model):
 
 
 def main():
-    best_prec1 = 0
+    best_prec1 = float("inf")
 
     # Training settings
 
@@ -312,9 +312,10 @@ def main():
 
 
             # remember best prec@1 and save checkpoint
-            is_best = prec1 > best_prec1
+            is_best = prec1 < best_prec1
             print("is best :{}", is_best)
-            best_prec1 = max(prec1, best_prec1)
+            best_prec1 = min(prec1, best_prec1)
+            print("best_prec1 :{}", best_prec1)
             save_checkpoint({
                 'epoch': epoch + 1,
                 'arch': args.model,
