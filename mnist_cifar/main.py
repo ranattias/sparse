@@ -135,10 +135,12 @@ def evaluate(args, model, device, test_loader, is_test_set=False):
 
 
 
-def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
+def save_checkpoint(state, is_best, model):
+    filename = os.path.join(save_model_dir, model, "checkpoint.pth.tar")
     torch.save(state, filename)
     if is_best:
-        shutil.copyfile(filename, 'model_best.pth.tar')
+        best_filename = os.path.join(save_model_dir, model, "model_best.pth.tar")
+        shutil.copyfile(filename, best_filename)
         print('saved checkpoint')
 
 
@@ -313,7 +315,7 @@ def main():
                 'state_dict': model.state_dict(),
                 'best_prec1': best_prec1,
                 'optimizer': optimizer.state_dict(),
-            }, is_best,(format(args.model)+"/checkpoint.pth.tar"))
+            }, is_best,args.model)
 
 
             if not args.dense and epoch < args.epochs:
