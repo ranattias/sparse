@@ -118,7 +118,7 @@ transformer-xl/pytorch/LM-TFM*
 # data
 *.data
 
-*.tar
+#*.tar
 conv_transformer/data
 dynamic_sparse/data
 dynamic_sparse/runs/*
