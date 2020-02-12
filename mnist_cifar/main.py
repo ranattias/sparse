@@ -146,7 +146,8 @@ def save_checkpoint(state, is_best, model):
 
 def main():
     best_prec1 = float("inf")
-
+    prec1 = float("inf")
+    
     # Training settings
 
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
@@ -321,7 +322,7 @@ def main():
                 'epoch': epoch + 1,
                 'arch': args.model,
                 'state_dict': model.state_dict(),
-                'best_prec1': best_prec1,
+                'best_prec1': prec1,
                 'optimizer': optimizer.state_dict(),
             }, is_best,args.model)
 
