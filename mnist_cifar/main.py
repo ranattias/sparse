@@ -145,9 +145,10 @@ def save_checkpoint(state, is_best, model):
 
 
 def main():
+
     best_prec1 = float("inf")
     prec1 = float("inf")
-    
+
     # Training settings
 
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
@@ -255,10 +256,9 @@ def main():
             raise Exception('Unknown optimizer.')
 
         lr_scheduler = optim.lr_scheduler.StepLR(optimizer, args.decay_frequency, gamma=0.1)
-        
+
         if not os.path.isdir(save_model_dir):
             os.mkdir(save_model_dir)
-
 
         if not os.path.isdir(os.path.join(save_model_dir, args.model)):
             os.mkdir(os.path.join(save_model_dir, args.model))
@@ -271,9 +271,9 @@ def main():
                 print_and_log("=> loading checkpoint: '{}'".format(load_path)) #format( args.model+ "_checkpoint.pth.tar"))
                 checkpoint = torch.load(load_path)
                 args.start_epoch = checkpoint['epoch']
-                best_prec1 = (checkpoint['best_prec1'])
                 model.load_state_dict(checkpoint['state_dict'])
                 optimizer.load_state_dict(checkpoint['optimizer'])
+                best_prec1 = (checkpoint['best_prec1'])
                 print_and_log("=> loaded checkpoint '{}' (epoch {})"
                               .format(load_path, checkpoint['epoch']))
                 print_and_log('Testing...')
